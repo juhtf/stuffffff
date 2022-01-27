@@ -56,7 +56,7 @@ if(scoreleftwrist > 0.2){
     song2.stop();
 if(song1_status==false){
     song1.play();
-    document.getElementById("music").innerHTML="playing"
+    document.getElementById("music").innerHTML="playing centuries";
 }
 }
 
