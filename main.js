@@ -1,51 +1,64 @@
-x=0;
-y=0;
+song1="";
+song2="";
 
-draw_circle=" ";
-draw_rect=" ";
+leftWristX=0;
+rightWristX=0;
+leftWristY=0;
+rightWristY=0;
+scoreleftwrist=0;
+song1_status=" ";
+song2_status=" ";
+
+function preload(){
+    song1=loadSound("music1.mp3");
+    song2=loadSound("music2.mp3");
+}
 
 function setup(){
-    canvas=createCanvas(900,600);
+    canvas=createCanvas(600,500);
+    canvas.center();
+    video=createCapture(VIDEO);
+    video.hide();
+
+    poseNet=ml5.poseNet(video,modelLoaded);
+    poseNet.on('pose',gotPoses);
 }
+
+function modelLoaded(){
+    console.log('PoseNet is being initialized!!!');
+}
+
+function gotPoses(results){
+    if(results.length > 0){
+        console.log(results);
+        scoreleftwrist=results[0].pose.keypoints[9].score;
+    
+        leftWristX=results[0].pose.leftWrist.x;
+        leftWristY=results[0].pose.leftWrist.y;
+        console.log("leftWristX=" + leftWristX + "leftWristY=" + leftWristY);
+    
+        rightWristX=results[0].pose.rightWrist.x;
+        rightWristY=results[0].pose.rightWrist.y;
+        console.log("rightWristX=" + rightWristX + "rightWristY=" + rightWristY);
+    }
+    }
 
 function draw(){
-    if(draw_circle=="set"){
-        radius=Math.floor(Math.random()*100);
-        circle(x,y,radius);
-        document.getElementById("status").innerHTML="The System has drawn the circle!!!";
-        draw_circle=" ";
-    }
-    if(draw_rect=="set"){
-        rect(x,y,70,50);
-        document.getElementById("status").innerHTML="The System has drawn the rectangle!!!";
-        draw_rect=" ";
-    }
+    image(video,0,0,600,500);
+    song1_status=song1.isPlaying();
+    song2_status=song2.isPlaying();
+
+    fill("#FF5467");
+    stroke("#FF5467");
+
+if(scoreleftwrist > 0.2){
+    circle(leftWristX,leftWristY,20);
+    song2.stop();
+if(song1_status==false){
+    song1.play();
+    document.getElementById("music").innerHTML="playing"
+}
 }
 
-var SpeechRecognition=window.webkitSpeechRecognition;
-var recognition=new SpeechRecognition();
-
-function start(){
-document.getElementById("status").innerHTML="System is Listening. Please Speak!!!";
-recognition.start();
 }
 
-recognition.onresult=function(event){
-    console.log(event);
-    var Content=event.results[0][0].transcript;
-    console.log(Content);
-
-    document.getElementById("status").innerHTML="The Speech has been accurately been recognised as:" + Content;
-    if(Content=="circle"){
-    x=Math.floor(Math.random()*900);
-    y=Math.floor(Math.random()*600);
-    document.getElementById("status").innerHTML="The computer has drawn a circle!!!";
-    draw_circle="set";
-    }
-    if(Content=="rectangle"){
-        x=Math.floor(Math.random()*900);
-        y=Math.floor(Math.random()*600);
-        document.getElementById("status").innerHTML="The computer has drawn a rectangle!!!";
-        draw_rect="set";
-        }
-}

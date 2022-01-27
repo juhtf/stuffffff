@@ -1,14 +1,25 @@
-body
-{
-	text-align: center;
+body{
+    background-size: cover;
 }
-span
-{
-	font-size: 18px;
-	color: red;
+
+.heading{
+    font-size: 23px;
+    width:100%;
+    margin: 0px;
 }
-canvas
-{
-	background: pink;
-	border-radius: 20px;
+
+.note{
+font-size: 15px;
+color: black;
+}
+
+#music{
+    font-size: 23px;
+    margin: 15px;
+}
+
+canvas{
+    box-shadow: 5px 5px 5px grey;
+    border: 5px solid green;
+    border-radius: 20px;
 }
