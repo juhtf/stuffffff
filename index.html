@@ -15,7 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
 
 </head>
-<body background="download.jfif">
+<body background="background.jpg">
 <center>
   	<h3 class="btn btn-warning heading">AI DJ WEB APP
 	    <br>
@@ -23,10 +23,21 @@
         Move your right-hand wrist up and down for increasing and decreasing the speed</span>
   	</h3>
 
-<h2 class="btn btn-success" id="music">SONG NAME</h2>
+<div class="div_speed">
+  <img class="div_speed_img" src="disk.gif">
+  <br>
+  <h3 class="btn btn-danger" id="h3_speed">SPEED</h3>
+</div>
+
+<div class="div_volume">
+  <img class="div_volume_img" src="disk.gif">
+  <br>
+  <h3 class="btn btn-danger" id="h3_volume">VOLUME</h3>
+</div>
 
 	<br><br>
-
+  <button onclick="play()" class="btn btn-success play_button">PLAY</button>
+  <button onclick="stop()" class="btn btn-warning play_button">STOP</button>
 </center>
 
 <script src="main.js"></script>
